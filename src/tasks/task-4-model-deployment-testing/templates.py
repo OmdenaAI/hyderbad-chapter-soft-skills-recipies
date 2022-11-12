@@ -89,7 +89,7 @@ def number_of_results(total_hits: int) -> str:
 def search_result(summary: str) -> str:
     """ HTML scripts to display search results. """
     return f"""
-      <div>
+      <div style="margin-top: .6rem; margin-bottom: .6rem;">
         <div style="color:grey;font-size:95%;">
             {summary}
         </div>

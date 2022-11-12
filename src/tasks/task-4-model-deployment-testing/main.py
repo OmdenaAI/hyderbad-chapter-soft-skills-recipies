@@ -2,11 +2,8 @@ import streamlit as st
 import pandas as pd
 import templates
 import urllib.parse
-
-def page_data(result_df,from_i,page_size,current_page):
-  end=current_page*page_size
-  result=result_df[from_i:end]
-  return result
+import utilities
+import datetime
 
 def set_session_state():
     # set default values
@@ -56,16 +53,20 @@ if __name__ == '__main__':
         st.session_state.search = None
         from_i = (st.session_state.page - 1) * page_size
         #search the index 'soft_skills_summaries' for the search word, with the tags of there are any that are activated
-        result = d[d.Summary.str.contains(search)]
+        regex_search=utilities.search_words_phrases(search)
+        d.scale=datetime.datetime.now()
+        result = d[d.Summary.str.contains(regex_search)]
+        result.scale=datetime.datetime.now()
         if st.session_state.tags:
           result=result[result['Finer Soft Skill']==st.session_state.tags]
-        results=page_data(result,from_i,page_size,st.session_state.page)
+        results=templates.page_data(result,from_i,page_size,st.session_state.page)
+        results.scale=datetime.datetime.now()
         #st.write(results,unsafe_allow_html=True)
         total_hits=len(result)
         # d['Finer Soft Skill']
         # show number of results and time taken
         if total_hits>0:
-          st.write(templates.number_of_results(total_hits), unsafe_allow_html=True)
+          st.write(templates.number_of_results(total_hits,(results.scale-d.scale).total_seconds()), unsafe_allow_html=True)
           # # render popular tags as filters
         
           list_of_results=list(result['Finer Soft Skill'].unique())
@@ -83,12 +84,25 @@ if __name__ == '__main__':
         
     
           # search results
+          #st.write(f'''<div style='margin-top: .2rem; margin-bottom: .2rem;'></div>''', unsafe_allow_html=True)
+          fig=utilities.word_cloud(result)
+          space_string='      '
+          space=f'''
+              <div style='margin-top: .15rem; margin-bottom: .15rem;'>
+                            {space_string}
+              </div><br>
+                '''
+          st.write(space, unsafe_allow_html=True)
+          st.pyplot(fig)
+          st.write(space, unsafe_allow_html=True)
           for hit in results['Summary']:
               # result = results['hits']['hits'][i]
               # res = hit['_source']['Summarized Content']
               # res['url'] = result['_id']
               # res['highlights'] = '...'.join(result['highlight']['content'])
               st.write(templates.search_result(hit), unsafe_allow_html=True)
+          st.write(space, unsafe_allow_html=True)
+
 
           # pagination
           if total_hits >= page_size:
@@ -98,5 +112,6 @@ if __name__ == '__main__':
                                                       st.session_state.page,
                                                       st.session_state.tags,)
               st.write(pagination_html, unsafe_allow_html=True)
+              
         else:
           st.write(templates.no_result_html(), unsafe_allow_html=True)
