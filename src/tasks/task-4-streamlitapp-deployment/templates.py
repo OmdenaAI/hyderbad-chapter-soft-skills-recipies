@@ -77,10 +77,11 @@ def load_css() -> str:
     """
 
 #this part displays the number of results retreived for the searched keyword
-def number_of_results(total_hits: int) -> str:
+def number_of_results(total_hits: int, seconds) -> str:
     """ HTML scripts to display number of results and duration. """
     return f"""
         <div style="color:grey;font-size:95%;">
+            {total_hits} results in {seconds} seconds
             {total_hits} results 
         </div><br>
     """

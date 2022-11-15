@@ -36,7 +36,7 @@ def set_session_state():
 if __name__ == '__main__':
     page_size = 5
     set_session_state()
-    d=pd.read_csv('Soft skill summaries.csv')
+    d=pd.read_csv('Soft-skill-summaries.csv')
     #creating the elastic search client instance
     # es = Elasticsearch('https://gq5ag28mru:hww48y9rk4@coab-testing-434159132.us-east-1.bonsaisearch.net:443')
     st.write(templates.load_css(), unsafe_allow_html=True)
@@ -59,7 +59,7 @@ if __name__ == '__main__':
         result.scale=datetime.datetime.now()
         if st.session_state.tags:
           result=result[result['Finer Soft Skill']==st.session_state.tags]
-        results=templates.page_data(result,from_i,page_size,st.session_state.page)
+        results=utilities.page_data(result,from_i,page_size,st.session_state.page)
         results.scale=datetime.datetime.now()
         #st.write(results,unsafe_allow_html=True)
         total_hits=len(result)
