@@ -1,6 +1,17 @@
 from wordcloud import WordCloud, STOPWORDS
 import matplotlib.pyplot as plt
-import nltk_download_utils
+#import nltk_download_utils
+import nltk
+nltk.download('punkt')
+nltk.download('stopwords')
+from nltk.corpus import wordnet 
+nltk.download('wordnet')
+nltk.download('omw-1.4')
+from nltk.stem.wordnet import WordNetLemmatizer
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
+nltk.download('averaged_perceptron_tagger')
+import string
 
 def page_data(result_df,from_i,page_size,current_page):
   end=current_page*page_size
@@ -33,7 +44,7 @@ def punctuation_stop_word_removal_and_tokenization(input_str):
 
 
 def word_cloud(result_df):
-  text = " ".join(i for i in result_df.Summary)
+  text = " ".join(i for i in result_df)
   tokens_without_sw=punctuation_stop_word_removal_and_tokenization(text)
   lemmas=lemmantization(tokens_without_sw)
   # print(lemmas)

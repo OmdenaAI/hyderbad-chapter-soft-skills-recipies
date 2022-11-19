@@ -82,7 +82,6 @@ def number_of_results(total_hits: int, seconds) -> str:
     return f"""
         <div style="color:grey;font-size:95%;">
             {total_hits} results in {seconds} seconds
-            {total_hits} results 
         </div><br>
     """
 
