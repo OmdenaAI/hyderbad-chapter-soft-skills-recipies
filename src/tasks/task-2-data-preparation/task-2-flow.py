@@ -410,7 +410,7 @@ if __name__ == "__main__":
     # print('candidate labels : ', candidate_labels)
 
     # read data
-    data_path = '/workspaces/hyderbad-chapter-soft-skills-recipies/src/data/task-2-inputs/wiki_how_20221029_sample.csv'
+    data_path = '/workspaces/hyderbad-chapter-soft-skills-recipies/src/data/task-2-inputs/wiki_how_20221029_sample_200.csv'
     data = pd.read_csv(data_path)
 
     # print(data.head(3))

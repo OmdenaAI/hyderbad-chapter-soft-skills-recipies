@@ -128,3 +128,4 @@ dmypy.json
 # Pyre type checker
 .pyre/
 wiki_how_20221029.csv
+tests_amine.py
