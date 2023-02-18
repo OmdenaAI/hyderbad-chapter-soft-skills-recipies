@@ -406,20 +406,23 @@ if __name__ == "__main__":
     skills_path='/workspaces/hyderbad-chapter-soft-skills-recipies/src/data/task-2-inputs/skills_df_v3.csv'
     skills = pd.read_csv(skills_path)
     candidate_labels = list(skills['Skills category'].unique())
-    print(skills.head(3))
-    print('candidate labels : ', candidate_labels)
+    # print(skills.head(3))
+    # print('candidate labels : ', candidate_labels)
 
     # read data
-    # data_path = '/workspaces/hyderbad-chapter-soft-skills-recipies/src/data/task-2-inputs/wiki_how_20221029.csv'
-    # data = pd.read_csv(data_path)
+    data_path = '/workspaces/hyderbad-chapter-soft-skills-recipies/src/data/task-2-inputs/wiki_how_20221029_sample.csv'
+    data = pd.read_csv(data_path)
 
-    
+    # print(data.head(3))
     
     # Run the flow - put ZSC_labels at None if you don't want to run ZSC
-    # disaggregated_data = task_2_pipeline(data, 'wikihow', ZSC_labels=None )
+    disaggregated_data = task_2_pipeline(data, 'wikihow', ZSC_labels=None )
+
+    print(disaggregated_data.paragraph)
     
     # Export result
-    # disaggregated_data.to_csv('disaggregated_data_20221101.csv', index = False)
+    disaggregated_data.to_csv('disaggregated_wiki_sample_data_20221029.csv', index = False)
+    print('File exported !')
 else: 
     print ("task-2-flow imported !")
 
