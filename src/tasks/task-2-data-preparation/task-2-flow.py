@@ -1,4 +1,4 @@
-!pip install sentence-transformers
+# !pip install sentence-transformers
 
 # imports
 import pandas as pd
@@ -402,18 +402,24 @@ def task_2_pipeline(data, forum = '', ZSC_labels = None):
 
 
 if __name__ == "__main__": 
-    # Read the skills if we want to run ZSC 
-    skills = pd.read_excel('../input/softskillsv3/skills_df_v3.xlsx')
+    # Read the skills if we want to run ZSC
+    skills_path='/workspaces/hyderbad-chapter-soft-skills-recipies/src/data/task-2-inputs/skills_df_v3.csv'
+    skills = pd.read_csv(skills_path)
     candidate_labels = list(skills['Skills category'].unique())
-    
+    print(skills.head(3))
+    print('candidate labels : ', candidate_labels)
+
     # read data
-    data = pd.read_csv('../input/wikihow-20221029/wiki_how_20221029.csv')
+    # data_path = '/workspaces/hyderbad-chapter-soft-skills-recipies/src/data/task-2-inputs/wiki_how_20221029.csv'
+    # data = pd.read_csv(data_path)
+
+    
     
     # Run the flow - put ZSC_labels at None if you don't want to run ZSC
-    disaggregated_data = task_2_pipeline(data, 'wikihow', ZSC_labels=None )
+    # disaggregated_data = task_2_pipeline(data, 'wikihow', ZSC_labels=None )
     
     # Export result
-    disaggregated_data.to_csv('disaggregated_data_20221101.csv', index = False)
+    # disaggregated_data.to_csv('disaggregated_data_20221101.csv', index = False)
 else: 
     print ("task-2-flow imported !")
 
